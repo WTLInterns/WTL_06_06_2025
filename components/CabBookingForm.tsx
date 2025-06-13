@@ -336,7 +336,7 @@ useEffect(() => {
     try {
       console.log("Calculating distance between:", origin, "and", destination)
 
-      const response = await fetch("http://localhost:8080/api/cab1", {
+      const response = await fetch("https://api.worldtriplink.com/api/cab1", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

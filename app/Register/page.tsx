@@ -208,7 +208,7 @@ export default function Register() {
       console.log('User object being sent:', userObject);
       
       // Directly call the backend API
-      const response = await fetch('http://localhost:8080/auth/register', {
+      const response = await fetch('https://api.worldtriplink.com/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

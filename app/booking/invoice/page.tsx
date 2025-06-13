@@ -173,7 +173,7 @@ function InvoiceContent() {
     })
 
     try {
-      const response = await fetch("http://localhost:8080/api/invoice1", {
+      const response = await fetch("https://api.worldtriplink.com/api/invoice1", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -296,7 +296,7 @@ function InvoiceContent() {
     })
 
     try {
-      const response = await fetch("http://localhost:8080/api/bookingConfirm", {
+      const response = await fetch("https://api.worldtriplink.com/api/bookingConfirm", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
