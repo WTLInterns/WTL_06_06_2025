@@ -73,7 +73,7 @@ export default function MyTripPage() {
         const userId = localStorage.getItem('userId');
         const id = Cookies.get('userId');
         console.log(",sfdfds",id)
-        const response = await fetch(`https://api.worldtriplink.com/api/by-user/${id}`);
+        const response = await fetch(`http://localhost:8080/api/by-user/${id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch trips');

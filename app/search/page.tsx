@@ -159,7 +159,7 @@ function SearchResultsContent() {
   
       // 3. Make the request with identical Postman configuration
       const response = await axios.post(
-        'https://api.worldtriplink.com/api/cab1',
+        'http://localhost:8080/api/cab1',
         params.toString(),
         {
           // headers: {
@@ -220,6 +220,7 @@ function SearchResultsContent() {
         
         if (data.days && data.days > 0) {
           setDays(data.days);
+          
         }
         
         if (data.cabinfo && data.cabinfo.length > 0) {
@@ -234,54 +235,40 @@ function SearchResultsContent() {
   }, [isClient, searchParams]);
 
   const getLatestPrice = (carType: string): number => {
-  if (!tripInfo || typeof tripInfo !== 'object') {
-    console.log('[getLatestPrice] tripInfo is missing or not an object:', tripInfo);
-    return 0;
-  }
+    if (!tripInfo || typeof tripInfo !== 'object') {
+      console.log('[getLatestPrice] tripInfo is missing or not an object:', tripInfo);
+      return 0;
+    }
 
     try {
       const currentTripInfo = tripInfo || {};
-      const currentDistance = distance || 100;
-      const currentDays = days || 1;
-      
       let basePrice = 0;
-      console.log('[getLatestPrice] tripInfo:', currentTripInfo);
+      
+      // Get base price from API response based on car type
       switch(carType.toLowerCase()) {
         case 'hatchback':
-          basePrice = currentTripInfo?.hatchback ? Number(currentTripInfo.hatchback) : 0;
+          basePrice = currentTripInfo?.hatchback || 0;
           break;
         case 'sedan':
-          basePrice = currentTripInfo?.sedan ? Number(currentTripInfo.sedan) : 0;
+          basePrice = currentTripInfo?.sedan || 0;
           break;
         case 'sedan premium':
-          basePrice = currentTripInfo?.sedanpremium ? Number(currentTripInfo.sedanpremium) : 0;
+          basePrice = currentTripInfo?.sedanpremium || 0;
           break;
         case 'suv':
-          basePrice = currentTripInfo?.suv ? Number(currentTripInfo.suv) : 0;
+          basePrice = currentTripInfo?.suv || 0;
           break;
         case 'muv':
-          basePrice = currentTripInfo?.suvplus ? Number(currentTripInfo.suvplus) : 0;
+          basePrice = currentTripInfo?.suvplus || 0;
           break;
         case 'ertiga':
-          basePrice = currentTripInfo?.ertiga ? Number(currentTripInfo.ertiga) : 0;
+          basePrice = currentTripInfo?.ertiga || 0;
           break;
       }
 
-      const tripType = searchParams.get('tripType');
-      let totalPrice = 0;
-      
-      if (tripType === 'roundTrip' || tripType === 'round-trip') {
-        // totalPrice = currentDistance * basePrice * currentDays;
-          // totalPrice = (currentDistance * 2 * basePrice) + (currentDays * 300); 
-          const package1 = 300 * currentDays;
-          const price = package1 * basePrice;
-            totalPrice = package1 + price;
-      } else {
-        totalPrice = currentDistance * basePrice;
-      }
-
-      console.log('[getLatestPrice] carType:', carType, 'basePrice:', basePrice, 'totalPrice:', totalPrice);
-      return Math.round(totalPrice);
+      // The API already provides the total price including days calculation for round trips
+      console.log('[getLatestPrice] carType:', carType, 'basePrice:', basePrice);
+      return Math.round(basePrice);
     } catch (error) {
       console.error('Error calculating price:', error);
       return 0;

@@ -20,7 +20,7 @@ export default function ForgotPasswordPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://api.worldtriplink.com/auth/send-otp', {
+      const response = await fetch('http://localhost:8080/auth/send-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://api.worldtriplink.com/auth/verify-otp', {
+      const response = await fetch('http://localhost:8080/auth/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export default function ForgotPasswordPage() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://api.worldtriplink.com/auth/reset-password', {
+      const response = await fetch('http://localhost:8080/auth/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
